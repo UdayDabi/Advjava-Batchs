@@ -7,6 +7,15 @@
 <title>Insert title here</title>
 </head>
 <body>
-<h1>Hello This is First Page </h1>
-</body>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+	<div align="center">
+		<h1><a href="WelcomeCtl">Online Result System</a></h1>
+	</div></body>
 </html>
