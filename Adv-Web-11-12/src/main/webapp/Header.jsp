@@ -8,7 +8,10 @@
 </head>
 <body>
 <h3>Hi, Guest</h3>
-<a href="WelcomeCtl">Welcome</a>
+<a href="WelcomeCtl">Welcome</a> |
+<a href="UserRegistrationCtl">SignUp</a>
+
+
 <hr>
 
 </body>
