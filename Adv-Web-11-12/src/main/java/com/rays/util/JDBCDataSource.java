@@ -1,6 +1,7 @@
 package com.rays.util;
 
 import java.beans.PropertyVetoException;
+
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
