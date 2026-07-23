@@ -15,7 +15,6 @@
 	<div align="center">
 
 		<h1>User Registration</h1>
-		<h3 style="color: green"><%=smsg%></h3>
 
 		<form action="UserRegistrationCtl" method="post">
 
