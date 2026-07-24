@@ -19,6 +19,16 @@ public class LoginCtl extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+
+		String op = request.getParameter("operation");
+		System.out.println("op === " + op);
+
+		if (op != null) {
+			HttpSession session = request.getSession();
+			session.invalidate(); // session destroy
+			request.setAttribute("successMsg", "user logout successfully");
+		}
+
 		RequestDispatcher rd = request.getRequestDispatcher("LoginView.jsp");
 		rd.forward(request, response);
 	}
@@ -56,7 +66,6 @@ public class LoginCtl extends HttpServlet {
 			} else {
 				System.out.println("invalid login or password");
 				response.sendRedirect("WelcomeCtl");
-
 
 			}
 
