@@ -18,6 +18,21 @@ public class UserCtl extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+
+		UserModel model = new UserModel();
+
+		String id = request.getParameter("id");
+		if (id != null) {
+			try {
+				UserBean bean = model.findByPk(Integer.parseInt(id));
+				request.setAttribute("bean", bean);
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+		}
+
 		RequestDispatcher rd = request.getRequestDispatcher("UserView.jsp");
 		rd.forward(request, response);
 	}
@@ -43,10 +58,17 @@ public class UserCtl extends HttpServlet {
 			bean.setLogin(login);
 			bean.setPassword(password);
 			bean.setDob(sdf.parse(dob));
-
-			model.add(bean);
-			System.out.println("user added successfully");
-			request.setAttribute("successMsg", "user added successfully");
+			if (op.equals("update")) {
+				bean.setId(Integer.parseInt(request.getParameter("id")));
+				request.setAttribute("bean", bean);
+				model.update(bean);
+				System.out.println("user added successfully");
+				request.setAttribute("successMsg", "user updated successfully");
+			} else {
+				model.add(bean);
+				System.out.println("user added successfully");
+				request.setAttribute("successMsg", "user added successfully");
+			}
 
 		} catch (Exception e) {
 			e.printStackTrace();

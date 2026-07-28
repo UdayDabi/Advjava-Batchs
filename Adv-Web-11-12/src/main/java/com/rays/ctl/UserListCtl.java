@@ -40,6 +40,26 @@ public class UserListCtl extends HttpServlet {
 		String op = request.getParameter("operation");
 		UserModel model = new UserModel();
 		UserBean bean = new UserBean();
+		String[] ids = request.getParameterValues("ids");
+
+		if (op.equals("delete")) {
+			if (ids != null && ids.length > 0) {
+				for (String id : ids) {
+					bean.setId(Integer.parseInt(id));
+
+					try {
+						model.delete(bean);
+						request.setAttribute("successMsg", "Data Delete successfully");
+
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+			} else {
+				request.setAttribute("errormsg", "select at least one record");
+			}
+
+		}
 
 		if (op.equals("search")) {
 			bean.setFirstName(request.getParameter("firstName"));

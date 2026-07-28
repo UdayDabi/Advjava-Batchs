@@ -15,7 +15,14 @@
 	<%@ include file="Header.jsp"%>
 
 	<div align="center">
+		<%
+		String emsg = (String) request.getAttribute("errormsg");
+		String smsg = (String) request.getAttribute("successMsg");
+		%>
 		<h1>User List</h1>
+		<h2 style="color: red"><%=emsg != null ? emsg : ""%></h2>
+		<h2 style="color: green"><%=smsg != null ? smsg : ""%></h2>
+
 		<form action="UserListCtl" method="post">
 
 			<table>
@@ -35,6 +42,8 @@
 					<th>LastName</th>
 					<th>Login</th>
 					<th>DOB</th>
+					<th>Edit</th>
+
 				</tr>
 
 				<%
@@ -43,17 +52,29 @@
 					UserBean bean = it.next();
 				%>
 
-				<tr align="center	">
-					<td><%=bean.getId()%></td>
+				<tr align="center">
+					<td><input type="checkbox" name="ids"
+						value="<%=bean.getId()%>"></td>
+
 					<td><%=bean.getFirstName()%></td>
 					<td><%=bean.getLastName()%></td>
 					<td><%=bean.getLogin()%></td>
 					<td><%=bean.getDob()%></td>
+					<td><a href="UserCtl?id=<%=bean.getId()%>">Edit</a></td>
+
 
 				</tr>
 				<%
 				}
 				%>
+			</table>
+			<table width="100%">
+				<tr>
+					<th></th>
+					<td align="center"><input type="submit" name="operation"
+						value="delete"></td>
+
+				</tr>
 			</table>
 
 		</form>
