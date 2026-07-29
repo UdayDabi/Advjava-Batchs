@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.rays.bean.UserBean;
+import com.rays.exception.DuplicateRecordException;
 import com.rays.util.JDBCDataSource;
 
 public class UserModel {
@@ -32,11 +33,11 @@ public class UserModel {
 
 	public int add(UserBean bean) throws Exception {
 
-//		UserBean existsBean = findByLogin(bean.getLogin());
+		UserBean existsBean = findByLogin(bean.getLogin());
 //
-//		if (existsBean != null) {
-//			throw new DuplicateRecordException("email id already exists");
-//		}
+		if (existsBean != null) {
+			throw new DuplicateRecordException("email id already exists");
+		}
 
 		Connection conn = JDBCDataSource.getConnection();
 
@@ -107,6 +108,35 @@ public class UserModel {
 
 		pstmt.setString(1, login);
 		pstmt.setString(2, pwd);
+
+		ResultSet rs = pstmt.executeQuery();
+
+		UserBean bean = null;
+
+		while (rs.next()) {
+			bean = new UserBean();
+			bean.setId(rs.getInt(1));
+			bean.setFirstName(rs.getString(2));
+			bean.setLastName(rs.getString(3));
+			bean.setLogin(rs.getString(4));
+			bean.setPassword(rs.getString(5));
+			bean.setDob(rs.getDate(6));
+
+		}
+
+		conn.close();
+		pstmt.close();
+		return bean;
+
+	}
+
+	// <----- findByLogin method ----->
+	public UserBean findByLogin(String login) throws Exception {
+
+		Connection conn = JDBCDataSource.getConnection();
+		PreparedStatement pstmt = conn.prepareStatement("select * from st_user where login = ?");
+
+		pstmt.setString(1, login);
 
 		ResultSet rs = pstmt.executeQuery();
 

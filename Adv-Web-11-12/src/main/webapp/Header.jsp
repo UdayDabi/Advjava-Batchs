@@ -22,7 +22,9 @@
 
 	<a href="LoginCtl?operation=logout">Logout</a> |
 	<a href="UserCtl">Add User</a> |
-	<a href="UserListCtl">User List</a>
+	<a href="UserListCtl">User List</a> |
+	<a href="OrderCtl">Add Order</a> |
+	<a href="OrderListCtl">Order List</a>
 
 	<%
 	} else {
