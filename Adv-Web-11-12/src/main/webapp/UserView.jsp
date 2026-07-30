@@ -32,7 +32,7 @@
 
 		<h2 style="color: green"><%=smsg != null ? smsg : ""%></h2>
 
-		<form action="UserCtl" method="post">
+		<form action="UserCtl.do" method="post">
 
 			<table>
 				<input type="hidden" name="id"

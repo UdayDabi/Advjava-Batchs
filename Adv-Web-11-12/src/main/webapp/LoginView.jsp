@@ -10,6 +10,7 @@
 	<%@ include file="Header.jsp"%>
 	<%
 	String smsg = (String) request.getAttribute("successMsg");
+	String emsg = (String) request.getAttribute("errorMsg");
 	%>
 	<div align="center">
 		<form action="LoginCtl" method="post">
@@ -17,6 +18,7 @@
 
 			<h1>Login</h1>
 			<h2 style="color: green"><%=smsg != null ? smsg : ""%></h2>
+			<h2 style="color: red"><%=emsg != null ? emsg : ""%></h2>
 
 			<table>
 				<tr>
