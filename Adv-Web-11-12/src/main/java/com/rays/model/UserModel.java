@@ -186,7 +186,7 @@ public class UserModel {
 		return bean;
 	}
 
-	public List search(UserBean bean) throws Exception {
+	public List search(UserBean bean, int pageNo, int pageSize) throws Exception {
 
 		Connection conn = JDBCDataSource.getConnection();
 
@@ -200,7 +200,10 @@ public class UserModel {
 				sql.append(" and lastName like '" + bean.getLastName() + "%'");
 			}
 		}
-
+		if (pageSize > 0) {
+			pageNo = (pageNo - 1) * pageSize;
+			sql.append(" limit " + pageNo + ", " + pageSize);
+		}
 		System.out.println("sql ===> " + sql.toString());
 		PreparedStatement pstmt = conn.prepareStatement(sql.toString());
 

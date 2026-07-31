@@ -11,14 +11,13 @@
 <body>
 	<%
 	List list = (List) request.getAttribute("list");
+	String emsg = (String) request.getAttribute("errormsg");
+	String smsg = (String) request.getAttribute("successMsg");
 	%>
 	<%@ include file="Header.jsp"%>
 
 	<div align="center">
-		<%
-		String emsg = (String) request.getAttribute("errormsg");
-		String smsg = (String) request.getAttribute("successMsg");
-		%>
+
 		<h1>User List</h1>
 		<h2 style="color: red"><%=emsg != null ? emsg : ""%></h2>
 		<h2 style="color: green"><%=smsg != null ? smsg : ""%></h2>
@@ -70,14 +69,17 @@
 			</table>
 			<table width="100%">
 				<tr>
+					<%-- <td><input type="submit" name="operation" value="previous"
+						<%=pageNo == 1 ? "disabled" : ""%>></td> --%>
 					<th></th>
 					<td align="center"><input type="submit" name="operation"
 						value="delete"></td>
-
+					<td align="right"><input type="submit" name="operation"
+						value="next" <%=list.size() < 5 ? "disabled" : ""%>></td>
 				</tr>
 			</table>
-
-		</form>
+<%-- 			<input type="hidden" name="pageNo" value="<%=pageNo%>">
+ --%>		</form>
 
 	</div>
 </body>

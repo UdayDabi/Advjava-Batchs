@@ -21,9 +21,10 @@ public class UserListCtl extends HttpServlet {
 			throws ServletException, IOException {
 
 		UserModel model = new UserModel();
-
+		int pageNo = 1;
+		int pageSize = 5;
 		try {
-			List list = model.search(null);
+			List list = model.search(null, pageNo, pageSize);
 			request.setAttribute("list", list);
 
 		} catch (Exception e) {
@@ -38,6 +39,8 @@ public class UserListCtl extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String op = request.getParameter("operation");
+		int pageNo = 1;
+		int pageSize = 5;
 		UserModel model = new UserModel();
 		UserBean bean = new UserBean();
 		String[] ids = request.getParameterValues("ids");
@@ -64,9 +67,21 @@ public class UserListCtl extends HttpServlet {
 		if (op.equals("search")) {
 			bean.setFirstName(request.getParameter("firstName"));
 		}
+		if (op.equals("next")) {
+			pageNo = Integer.parseInt(request.getParameter("pageNo"));
+			pageNo++;
+		}
+
+		if (op.equals("previous")) {
+			pageNo = Integer.parseInt(request.getParameter("pageNo"));
+			pageNo--;
+		}
+
 		try {
-			List list = model.search(bean);
+			List list = model.search(bean, pageNo, pageSize);
 			request.setAttribute("list", list);
+			request.setAttribute("pageNo", pageNo);
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
